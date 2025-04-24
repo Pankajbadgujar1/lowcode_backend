@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,15 +75,100 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lowcode_backend.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Default database 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#Mysql database conndction
+
+# DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'badgujar_form',
+#             'USER': 'badgujar_form_user',
+#             'PASSWORD': 'Qsu1AZraMSB77',
+#             'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+#             'PORT': '3306',
+#             'OPTIONS': {
+#                 'sql_mode': 'STRICT_TRANS_TABLES',
+#                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#                 'charset': 'utf8mb4',
+#                 'collation': 'utf8mb4_general_ci',
+#                 'isolation_level': 'read committed',
+#                 'autocommit': True,
+#             },
+#             'ATOMIC_REQUESTS': True,
+#         }
+#     }
+
+# if RUNNING_ON == "SERVER" or RUNNING_ON == "UAT":
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'badgevwe_badgujar_forms',
+#             'USER': 'badgevwe_badgujar_forms_user',
+#             'PASSWORD': 'Qsu1AZraMSB77',
+#             'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+#             'PORT': '3306',
+#             'OPTIONS': {
+#                 'sql_mode': 'STRICT_TRANS_TABLES',
+#                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#                 'charset': 'utf8mb4',
+#                 'collation': 'utf8mb4_general_ci',
+#                 'isolation_level': 'read committed',
+#                 'autocommit': True,
+#             },
+#             'ATOMIC_REQUESTS': True,
+#         }
+#     }
+# elif RUNNING_ON == "LOCAL_UAT":
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'badgujar_form',
+#             'USER': 'badgujar_form_user',
+#             'PASSWORD': 'Qsu1AZraMSB77',
+#             'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+#             'PORT': '3306',
+#             'OPTIONS': {
+#                 'sql_mode': 'STRICT_TRANS_TABLES',
+#                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#                 'charset': 'utf8mb4',
+#                 'collation': 'utf8mb4_general_ci',
+#                 'isolation_level': 'read committed',
+#                 'autocommit': True,
+#             },
+#             'ATOMIC_REQUESTS': True,
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'badgujar_form',
+#             'USER': 'badgujar_form_user',
+#             'PASSWORD': 'Qsu1AZraMSB77',
+#             'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+#             'PORT': '3306',
+#             'OPTIONS': {
+#                 'sql_mode': 'STRICT_TRANS_TABLES',
+#                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+#                 'charset': 'utf8mb4',
+#                 'collation': 'utf8mb4_general_ci',
+#                 'isolation_level': 'read committed',
+#                 'autocommit': True,
+#             },
+#             'ATOMIC_REQUESTS': True,
+#         }
+#     }
 
 
 # Password validation
@@ -120,3 +211,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
